@@ -1,13 +1,13 @@
-// LUXUM video intro: play once per page visit, with an accessible skip control.
+// LUXUM video intro: plays automatically and closes when the video ends.
 (() => {
   const screen = document.getElementById('introScreen');
   const video = document.getElementById('introVideo');
-    if (!screen || !video) return;
+  if (!screen || !video) return;
   const finish = () => { screen.classList.add('is-done'); setTimeout(() => screen.remove(), 850); };
   video.addEventListener('ended', finish, { once: true });
   video.addEventListener('error', finish, { once: true });
   const play = video.play();
-  if (play?.catch) play.catch(() => { /* Intro remains skippable if autoplay is blocked. */ });
+  if (play?.catch) play.catch(() => { /* Browser autoplay may be blocked; intro closes on the fallback timer. */ });
   window.setTimeout(finish, 8500);
 })();
 // LUXUM website interactions
